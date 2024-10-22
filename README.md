@@ -1,12 +1,8 @@
-# CICD Pipeline for Containers on AWS
-This code repository is part of the Amazon EKS Cluster Setup tutorial: "Building a CI/CD Pipeline for Amazon EKS Workloads with Native AWS Services". It includes a sample application, a dockerfile, configuration files for AWS CodeBuild and AWS CodePipeline, and [Hashicorp Terraform](https://www.terraform.io/) Infrastructure as Code to set up the CI/CD pipeline.
-
 ## About 
 
 This repository is dedicated to setting up an end-to-end CI/CD pipeline for hosting and testing application code, building a container image from the code, pushing and storing the container image to [Elastic Container Registry](https://aws.amazon.com/ecr/), and deploying this container on EKS as a deployment. It includes the following components:
 
-![GitHub Image](/images/overview.jpg)
-
+\
 * **Preparing the dedicated VPC for the cluster**: As a basis, we created a dedicated [Amazon VPC](https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html) to host the EKS cluster. The VPC uses the CIDR `10.0.0.0/16`, 3 private, and 3 public subnets. We create also an [Internet Gateway](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Internet_Gateway.html) and a [NAT Gateway](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html). You can find the VPC configuration in the [ekc_cluster.tf file](https://github.com/build-on-aws/cicd-pipeline-for-containers/blob/66044ac88b76edd0ca9fbf74de902836751956c4/eks_cluster.tf#L12).
 * **Creating the EKS Cluster**: We built an [EKS Cluster](https://github.com/build-on-aws/cicd-pipeline-for-containers/blob/66044ac88b76edd0ca9fbf74de902836751956c4/eks_cluster.tf#L39) with a managed node group with a minimum size 1 and maximum size 5, and one instance type of `t3.small`. 
 * **Storing the Application Code to AWS CodeCommit**: Utilize the [AWS CodeCommit](https://aws.amazon.com/codecommit/) service to create a Git repository for the application code. A new code push on a specific branch of this git repository triggers CodePipeline, initiating the CI/CD flow. We use [AWS EventBridge](https://aws.amazon.com/eventbridge/) and create an event rule that detects new commits to the repository and triggers the pipeline.
@@ -70,16 +66,8 @@ To clean up, run on the initial cloned repository:
 ```
 terraform destroy
 ```
-
-## Disclaimer
-
-The Sample Cluster Application used for the purposes of this demo was taken from this GitHub Repository: [eks-container-pipeline-cdk-template/sample-cluster-app](https://github.com/aws-samples/eks-container-pipeline-cdk-template/tree/main/sample-cluster-app).
-
 ## Security
 
 See [CONTRIBUTING](CONTRIBUTING.md#security-issue-notifications) for more information.
 
-## License
-
-This library is licensed under the MIT-0 License. See the LICENSE file.
 
